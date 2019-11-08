@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <title>Pokemons Data</title>
+</head>
+
+<body>
+  <div id="app">
+    <br>
+    <h3 class="text-center">All Pokemons</h3>
+    <br>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">HP</th>
+            <th scope="col">Attack</th>
+            <th scope="col">Defense</th>
+            <th scope="col">Sp Attack</th>
+            <th scope="col">Sp Defense</th>
+            <th scope="col">Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="pokemon in pokemons">
+            <td> {{ pokemon.id }} </td>
+            <td> {{ pokemon.name.english }}</td>
+            <td> {{ pokemon.type }} </td>
+            <td> {{ pokemon.base.HP }} </td>
+            <td> {{ pokemon.base.Attack }} </td>
+            <td> {{ pokemon.base.Defense }} </td>
+            <td> {{ pokemon.base["Sp. Attack"] }} </td>
+            <td> {{ pokemon.base["Sp. Defense"] }} </td>
+            <td> {{ pokemon.base.Speed }} </td>
+          </tr>
+        </tbody>
+    </table>
+      
+  </div>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+    integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          pokemons: []
+        }
+      },
+      mounted() {
+        axios
+          .get('https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json')
+          .then(response => (this.pokemons = response.data))
+      }
+    })
+  </script>
+</body>
+
+</html>
